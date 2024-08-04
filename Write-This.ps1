@@ -1,15 +1,15 @@
 function Write-This {
-    # Write a string of text to the host and a log file simultaneously.
+    # Write a string of text to the host and/or a log file simultaneously.
     [CmdletBinding()]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification = 'Support using Write-Host and colors for interactive scripts.')]
     [OutputType([string])]
         param (
-            # The message to display and/or write to a log
+            # The message to display and/or write to a log file
             [Parameter(Mandatory, Position = 0)]
             [string]
             $LogText,
 
-            # Type of output to send
+            # Type of output to write
             [Parameter(Position = 1)]
             [ValidateSet('Both','HostOnly','LogOnly')]
             [string]
