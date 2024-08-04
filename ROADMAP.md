@@ -1,9 +1,5 @@
 # Roadmap
 
-## Decorations
-
-A parameter that will work with certain output types to add color, borders, or other possible styles.
-
 ## Outputs
 
 A parameter that accepts an array OR a series of switches to enable output types for the provided string.
@@ -25,3 +21,14 @@ Use the familiar Foreground and Background color parameters OR one combined `-Co
 
 - Append (Default)
 - Overwrite
+
+## Decorations
+
+A parameter that will work with certain output types to add color, borders, or other possible styles.
+
+- TopBorder
+- BottomBorder
+- IndentLevel?
+- TimeStamp
+- Script Name or Function Name
+
