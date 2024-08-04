@@ -14,6 +14,21 @@ function Write-This {
             [ValidateSet('Both','HostOnly','LogOnly')]
             [string]
             $Output = 'Both'
+
+# Trying to code on my phone
+# Set the foreground color for streams that support it
+[Parameter()]
+[System.ConsoleColor]$ForegroundColor
+
+# Set the background color for streams that support it
+[Parameter()]
+[System.ConsoleColor]$BackgroundColor
+
+# Apply a style where supported
+[Parameter()]
+#finish later
+$Style
+
         )
 
     switch ($Output) {
