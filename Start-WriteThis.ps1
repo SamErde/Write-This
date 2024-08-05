@@ -13,7 +13,9 @@ function Start-WriteThis {
 
         # Generate a log file name if one was not specified in the parameters.
         if ( -not $PSBoundParameters.ContainsKey('LogFile') ) {
-            $LogFile = "Log File {0}.txt" -f ($StartTime.ToString("yyyy-MM-dd HH_mm_ss"))
+            $script:LogFile = "Log File {0}.txt" -f ($StartTime.ToString("yyyy-MM-dd HH_mm_ss"))
+        } else {
+            $script:LogFile = $LogFile
         }
     }
 

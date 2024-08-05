@@ -2,7 +2,8 @@ function Stop-WriteThis {
     [CmdletBinding()]
     param (
         # Log path and filename.
-        [Parameter(Mandatory)]
+        [Parameter()]
+        [ValidateScript({Test-Path $LogFile -IsValid})]
         [string]
         $LogFile
     )
@@ -10,6 +11,7 @@ function Stop-WriteThis {
     begin {
         $script:FinishTime = Get-Date
 
+        # Need to add validation for log file path.
         if (-not $PSBoundParameters.ContainsKey('LogFile')) {
             $LogFile = $script:LogFile
         }
