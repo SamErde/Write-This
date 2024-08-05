@@ -2,33 +2,34 @@
 
 ## Outputs
 
-A parameter that accepts an array OR a series of switches to enable output types for the provided string.
+A parameter that accepts an array (or a series of switches?) to enable output types/streams for the provided string.
 
-- Host (Decorations())
-- LogFile (LogSeparator())
-- Output (Compatibility)
-- Verbose
+- Host
+- LogFile
+- Output (Compatibility alternative to host.)
+- Verbose (Maybe?)
 - Information (Maybe?)
 
-## Colors
+## Log File
 
-Use the familiar Foreground and Background color parameters OR one combined `-Colors (Foreground, Background)` parameter.
-
-- ForefroundColor
-- BackgroundColor
-
-# Log File Handling
+What should we do if the log file already exists?
 
 - Append (Default)
 - Overwrite
 
-## Decorations
+## Colors
 
-A parameter that will work with certain output types to add color, borders, or other possible styles.
+Support the familiar Foreground and Background color parameters for host output.
+
+- ForegroundColor
+- BackgroundColor
+
+## Decorations (Potential Concept, Low Priority)
+
+A parameter that could work with certain output types to add color, borders, or other possible styles.
 
 - TopBorder
 - BottomBorder
 - IndentLevel?
 - TimeStamp
 - Script Name or Function Name
-
