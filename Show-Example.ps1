@@ -1,3 +1,4 @@
+# An example of using Write-This by importing the 3 functions it relies on.
 . .\Start-WriteThis.ps1
 . .\Write-This.ps1
 . .\Stop-WriteThis.ps1
