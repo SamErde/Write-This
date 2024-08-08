@@ -2,8 +2,8 @@
 
 # Title style settings
 $StyleTitle = @{
-    ForegroundColor = White
-    BackgroundColor = DarkBlue
+    ForegroundColor = 'White'
+    BackgroundColor = 'DarkBlue'
     UseWrapper      = $true
     TitleMargin     = 8
     Wrapper         = "|$("=" * ($TitleString.Length + $TitleMargin*2))|`n|    $TitleString    |`n|$("=" * ($TitleString.Length + $TitleMargin*2))|"
@@ -37,8 +37,8 @@ Write-Host "$BorderBottom" -ForegroundColor White -BackgroundColor DarkBlue -NoN
 
 # Pass style settings
 $StylePass = @{
-    ForegroundColor = Green
-    BackgroundColor = Black
+    ForegroundColor = 'Green'
+    BackgroundColor = 'Black'
     PrefixTimeStamp = $false
     PrefixPassStamp = ' [Pass] '
     PassText        = "$(if ($PrefixTimeStamp) {$PrefixTimeStamp}) $PrefixPassStamp $Text"
@@ -46,8 +46,8 @@ $StylePass = @{
 
 # Fail style settings
 $StyleFail = @{
-    ForegroundColor = Red
-    BackgroundColor = Black
+    ForegroundColor = 'Red'
+    BackgroundColor = 'Black'
     PrefixTimeStamp = $false
     PrefixPassStamp = ' [Fail] '
     FailText        = "$(if ($PrefixTimeStamp) {$PrefixTimeStamp}) $PrefixFailStamp $Text"
