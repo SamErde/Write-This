@@ -9,25 +9,6 @@ $StyleTitle = @{
     Wrapper         = "|$("=" * ($TitleString.Length + $TitleMargin*2))|`n|    $TitleString    |`n|$("=" * ($TitleString.Length + $TitleMargin*2))|"
 }
 
-
-# Pass style settings
-$StylePass = @{
-    ForegroundColor = Green
-    BackgroundColor = Black
-    PrefixTimeStamp = $false
-    PrefixPassStamp = ' [Pass] '
-    PassText        = "$(if ($PrefixTimeStamp) {$PrefixTimeStamp}) $PrefixPassStamp $Text"
-}
-
-# Fail style settings
-$StyleFail = @{
-    ForegroundColor = Red
-    BackgroundColor = Black
-    PrefixTimeStamp = $false
-    PrefixPassStamp = ' [Fail] '
-    FailText        = "$(if ($PrefixTimeStamp) {$PrefixTimeStamp}) $PrefixFailStamp $Text"
-}
-
 # Sample: White text on a blue background. Title framed in a box.
 $TitleString    = "Welcome to Write-This!"
 $TitleMargin    = 16
@@ -53,3 +34,22 @@ Write-Host $BorderRight -ForegroundColor White -BackgroundColor DarkBlue -NoNewl
 Write-Host "$BorderLeft$(" " * $TitleString.Length)$BorderRight" -ForegroundColor White -BackgroundColor DarkBlue -NoNewline ; Reset-LineColor
 # Bottom border 1
 Write-Host "$BorderBottom" -ForegroundColor White -BackgroundColor DarkBlue -NoNewline ; Reset-LineColor
+
+# Pass style settings
+$StylePass = @{
+    ForegroundColor = Green
+    BackgroundColor = Black
+    PrefixTimeStamp = $false
+    PrefixPassStamp = ' [Pass] '
+    PassText        = "$(if ($PrefixTimeStamp) {$PrefixTimeStamp}) $PrefixPassStamp $Text"
+}
+
+# Fail style settings
+$StyleFail = @{
+    ForegroundColor = Red
+    BackgroundColor = Black
+    PrefixTimeStamp = $false
+    PrefixPassStamp = ' [Fail] '
+    FailText        = "$(if ($PrefixTimeStamp) {$PrefixTimeStamp}) $PrefixFailStamp $Text"
+}
+
