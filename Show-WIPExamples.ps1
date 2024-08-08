@@ -28,27 +28,28 @@ $StyleFail = @{
     FailText        = "$(if ($PrefixTimeStamp) {$PrefixTimeStamp}) $PrefixFailStamp $Text"
 }
 
-# eg
-$TitleString = "Welcome to Write-This!"
-$TitleMargin = 4
+# Sample: White text on a blue background. Title framed in a box.
+$TitleString    = "Welcome to Write-This!"
+$TitleMargin    = 16
 $BorderWidth    = $TitleString.Length + ($TitleMargin*2)
 $BorderTop      = "`|$("=" * $BorderWidth)`|"
 $BorderLeft     = "`|$(" " * $TitleMargin)"
 $BorderRight    = "$(" " * $TitleMargin)`|"
 $BorderBottom   = "`|$("=" * $BorderWidth)`|"
+
 $HostForegroundColor = $Host.UI.RawUI.ForegroundColor
 $HostBackgroundCOlor = $Host.UI.RawUI.BackgroundColor
-Function Reset-LineColor { Write-Host " " -ForegroundColor $HostForegroundColor -BackgroundColor $HostBackgroundColor }
-# Top border
-Write-Host $BorderTop -ForegroundColor White -BackgroundColor DarkBlue -NoNewline
-Reset-LineColor
-# Left border for title
+Function Reset-LineColor { Write-Host "" -ForegroundColor $HostForegroundColor -BackgroundColor $HostBackgroundColor }
+
+# Top border 1
+Write-Host $BorderTop -ForegroundColor White -BackgroundColor DarkBlue -NoNewline ; Reset-LineColor
+# Top border 2: side borders and blank line above title
+Write-Host "$BorderLeft$(" " * $TitleString.Length)$BorderRight" -ForegroundColor White -BackgroundColor DarkBlue -NoNewline ; Reset-LineColor
+# Title left border / Title / Title right border
 Write-Host "$BorderLeft" -ForegroundColor White -BackgroundColor DarkBlue -NoNewline
-# Title
 Write-Host $TitleString -ForegroundColor Blue -BackgroundColor White -NoNewline
-# Right border
-Write-Host $BorderRight -ForegroundColor White -BackgroundColor DarkBlue -NoNewline
-Reset-LineColor
-# Bottom border
-Write-Host "$BorderBottom" -ForegroundColor White -BackgroundColor DarkBlue -NoNewline
-Reset-LineColor
+Write-Host $BorderRight -ForegroundColor White -BackgroundColor DarkBlue -NoNewline ; Reset-LineColor
+# Bottom border 2: side borders and blank line below title
+Write-Host "$BorderLeft$(" " * $TitleString.Length)$BorderRight" -ForegroundColor White -BackgroundColor DarkBlue -NoNewline ; Reset-LineColor
+# Bottom border 1
+Write-Host "$BorderBottom" -ForegroundColor White -BackgroundColor DarkBlue -NoNewline ; Reset-LineColor
