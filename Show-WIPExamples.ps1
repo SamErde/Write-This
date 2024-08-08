@@ -53,3 +53,14 @@ $StyleFail = @{
     FailText        = "$(if ($PrefixTimeStamp) {$PrefixTimeStamp}) $PrefixFailStamp $Text"
 }
 
+# H1
+
+# H2
+
+# H3
+
+# Detail level 1 indent
+
+# Detail level 2 indent
+
+# Detail level 3 indent
