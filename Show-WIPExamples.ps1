@@ -1,7 +1,5 @@
 # Just messing around with style template ideas
 
-
-
 #region SampleTitle
     # Sample: White text on a blue background. Title framed in a box.
     $TitleText    = "Welcome to Write-This!"
@@ -149,7 +147,7 @@
     }
     #endregion StyleTitleDefinition
 
-    # ====== # ClassExperiments Examples # ====== #
+    #region ClassExperimentsExamples
     [styletitle]::new("Hello, World!",16,'Green','Black').WriteHost()
     [styletitle]::new("Hello, Everyone!",4,'White','DarkBlue').WriteHost()
     $Title2 = [StyleTitle]::new([hashtable]@{
@@ -174,6 +172,7 @@
         BackgroundColor = 'Yellow'
     })
     $Title.WriteHost()
+    #endregion ClassExperimentsExamples
 
     #region RegisterTypeAccellerator
     # Define the types to export with type accelerators.
