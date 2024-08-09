@@ -73,12 +73,10 @@
 #region ClassExperiments
     #region StyleTitleDefinition
     class StyleTitle {
-        $HostForegroundColor # HOW CAN I GET $Host.UI.RawUI.[__]Color INTO THE CLASS?!
-        $HostBackgroundColor # HOW CAN I GET $Host.UI.RawUI.[__]Color INTO THE CLASS?!
-
-        [string] $TitleText
-        [ValidateRange(0,32)]
-        [int] $TitleMargin              = 16
+        [ConsoleColor] $HostForegroundColor = $script:Host.UI.RawUI.ForegroundColor
+        [ConsoleColor] $HostBackgroundColor = $script:Host.UI.RawUI.BackgroundColor
+        [string] $TitleText = ''
+        [int] $TitleMargin = 16
         [ConsoleColor] $ForegroundColor = 'White'
         [ConsoleColor] $BackgroundColor = 'DarkBlue'
         [bool]   $Border                = $true
@@ -88,51 +86,37 @@
         [string] $BorderRight           = "$(" " * $this.TitleMargin)`|"
         [string] $BorderBottom          = "`|$("=" * $this.BorderWidth)`|"
 
-        #region Constructs
-        # Default empty construct.
-        StyleTitle () { }
+        StyleTitle () {
+        }
 
-        # Construct with just the TitleText specified.
-        StyleTitle ( [string]$TitleText ) { $this.TitleText = $TitleText }
+        StyleTitle ( [string]$TitleText ) {
+            $this.TitleText = $TitleText
+        }
 
         # Construct with a hash table that incldues TitleText, TitleMargin, ForegroundColor, and BackgroundColor.
         StyleTitle([hashtable]$StyleTitle) {
-            switch ($StyleTitle.Keys) {
-                'TitleText'       { $this.TitleText = $StyleTitle.TitleText }
-                'TitleMargin'     { if ($StyleTitle.ContainsKey('TitleMargin')) { $this.TitleMargin = $StyleTitle.TitleMargin } else { $this.TitleMargin = 16 } }
-                'ForegroundColor' { if ($StyleTitle.ContainsKey('ForegroundColor')) { $this.ForegroundColor = $StyleTitle.ForegroundColor } else { $this.ForegroundColor = 'White' } }
-                'BackgroundCOlor' { if ($StyleTitle.ContainsKey('BackgroundColor')) { $this.BackgroundColor = $StyleTitle.BackgroundColor } else { $this.BackgroundColor = 'DarkBlue' } }
-            }
+            $this.TitleText       = if ($StyleTitle.ContainsKey('TitleText'))       { $StyleTitle.TitleText       } else { "Untitled" },
+            $this.TitleMargin     = if ($StyleTitle.ContainsKey('TitleMargin'))     { $StyleTitle.TitleMargin     } else { 8 },
+            $this.ForegroundColor = if ($StyleTitle.ContainsKey('ForegroundColor')) { $StyleTitle.ForegroundColor } else { 'White' },
+            $this.BackgroundColor = if ($StyleTitle.ContainsKey('BackgroundColor')) { $StyleTitle.BackgroundColor } else { 'DarkBlue' }
         }
 
         # Construct with manually defined overrides.
         StyleTitle (
             [string] $TitleText,
-            [int] $TitleMargin              = 16,
+            [int] $TitleMargin = 16,
             [ConsoleColor] $ForegroundColor = 'White',
-            [ConsoleColor] $BackgroundColor = 'DarkBlue'#,
-            #[bool]   $Border                = $true,
-            #[int]    $BorderWidth           = ($this.TitleText.Length) + ($this.TitleMargin*2),
-            #[string] $BorderTop             = "`|$("=" * $this.BorderWidth)`|",
-            #[string] $BorderLeft            = "`|$(" " * $this.TitleMargin)",
-            #[string] $BorderRight           = "$(" " * $this.TitleMargin)`|",
-            #[string] $BorderBottom          = "`|$("=" * $this.BorderWidth)`|",
-            #$HostForegroundColor,            #= $Host.UI.RawUI.ForegroundColor,
-            #$HostBackgroundColor            #= $Host.UI.RawUI.BackgroundColor
+            [ConsoleColor] $BackgroundColor = 'DarkBlue'
         ) {
             $this.TitleText = $TitleText
-            $this.TitleMargin = $TitleMargin
-            $this.ForegroundColor = $ForegroundColor
-            $this.BackgroundColor = $BackgroundColor
-            #$this.BorderWidth = $TitleText.Length + ($TitleMargin*2)
-            #$this.Border = $true
-            #$this.HostForegroundColor = $HostForegroundColor
-            #$this.HostBackgroundCOlor = $HostBackgroundColor
+            $this.TitleMargin = if ($TitleMargin) { $TitleMargin } else { $this.TitleMargin }
+            $this.ForegroundColor = if ($ForegroundColor) { $ForegroundColor } else { $this.ForeroundColor }
+            $this.BackgroundColor = if ($BackgroundColor) { $BackgroundColor } else { $this.BackgroundColor }
+            $this.BorderWidth = $TitleText.Length + ($TitleMargin*2)
+            $this.HostForegroundColor = ($script:Host.UI.RawUI.ForegroundColor).ToString()
+            $this.HostBackgroundColor = ($script:Host.UI.RawUI.BackgroundColor).ToString()
         }
 
-        #endregion Constructs
-
-        #region Methods
         [StyleTitle]UpdateBorders() {
             [int]    $this.BorderWidth           = ($this.TitleText.Length) + ($this.TitleMargin*2)
             [string] $this.BorderTop             = "`|$("=" * $this.BorderWidth)`|"
@@ -162,9 +146,34 @@
         WriteLog ($Title) {
             #
         }
-        #endregion Methods
     }
     #endregion StyleTitleDefinition
+
+    # ====== # ClassExperiments Examples # ====== #
+    [styletitle]::new("Hello, World!",16,'Green','Black').WriteHost()
+    [styletitle]::new("Hello, Everyone!",4,'White','DarkBlue').WriteHost()
+    $Title2 = [StyleTitle]::new([hashtable]@{
+        TitleText = 'This TPS Report Will Be Amazing'
+        TitleMargin = 8
+        ForegroundColor = 'Cyan'
+        BackgroundColor = 'DarkBlue'
+    })
+    $Title2.WriteHost()
+
+    $Title1 = [StyleTitle]::new(@{
+        TitleMargin = 32
+        TitleText = "Test Amazing Titles"
+        ForegroundColor = 'Cyan'
+        BackgroundColor = 'Yellow'
+    })
+    $Title1.WriteHost()
+
+    $Title = [StyleTitle]::new([hashtable]@{
+        TitleText = "I'll Take Amazing Titles of the World for `$200, Alex"
+        ForegroundColor = 'Black'
+        BackgroundColor = 'Yellow'
+    })
+    $Title.WriteHost()
 
     #region RegisterTypeAccellerator
     # Define the types to export with type accelerators.
@@ -205,14 +214,4 @@
     }.GetNewClosure()
     #endregion RegisterTypeAccellerator
 
-    # ====== # ClassExperiments Examples # ====== #
-    [styletitle]::new("Hello, World!",16,'Green','Black').WriteHost()
-    [styletitle]::new("Hello, Everyone!",4,'White','DarkBlue').WriteHost()
-    $Title = [StyleTitle]::new(@{
-        TitleText = "This Report Will Be Amazing"
-        TitleMargin = 8
-        ForegroundColor = 'Cyan'
-        BackgroundCOlor = 'DarkBlue'
-    })
-    $Title.WriteHost()
 #endregion ClassExperiments
