@@ -61,12 +61,12 @@ function Write-This {
         # Define text wrappers for styles
         $Wrap = @{
             Title    = @{
-                Prefix = '.:: '
-                Suffix = ' ::.'
+                Prefix = "`n.:: "
+                Suffix = " ::.`n"
             }
             SubTitle = @{
-                Prefix = '... '
-                Suffix = ' ...'
+                Prefix = "`n... "
+                Suffix = " ...`n"
             }
         }
 
