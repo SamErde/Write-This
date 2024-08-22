@@ -19,6 +19,9 @@ function Write-This {
     .PARAMETER BackgroundColor
     When writing to the host console, a background color can be specified.
 
+    .PARAMETER Style
+    The style to use for your message.
+
     .EXAMPLE
     Write a string of text to the host console and to the log file, with colors in the host.
 
@@ -35,48 +38,76 @@ function Write-This {
 
         # Type of output to write
         [Parameter(Position = 1)]
-        [ValidateSet('Both','HostOnly','LogOnly')]
+        [ValidateSet('Both', 'HostOnly', 'LogOnly')]
         [string]
         $Output = 'Both',
 
-        # Set the foreground color for streams that support it
-        [Parameter(ParameterSetName = 'Decoration')]
+        # The style to use for your message
+        [Parameter()]
+        [ValidateSet('Title', 'Subtitle', 'Basic', 'Code', 'Detail1', 'Detail2', 'Detail3')]
+        [string]
+        $Style = 'Basic',
+
+        # Override the style's default foreground color
+        [Parameter()]
         [System.ConsoleColor]$ForegroundColor,
 
-        # Set the background color for streams that support it
-        [Parameter(ParameterSetName = 'Decoration')]
+        # Override the style's default background color
+        [Parameter()]
         [System.ConsoleColor]$BackgroundColor
-
-        <# Concept for optional decoration of host output.
-        # Apply a style where supported
-        [Parameter(ParameterSetName = 'Decoration')]
-        $Style
-        #>
     )
 
     begin {
-        # Add colors to the host output if they are specified in the function parameters.
-        if ($PSBoundParameters.ContainsKey('ForegroundColor') -and $PSBoundParameters.ContainsKey('BackgroundColor')) {
-            [scriptblock]$HostOutput = {Write-Host $LogText -ForegroundColor $ForegroundColor -BackgroundColor $BackgroundColor}
-        } else {
-            [scriptblock]$HostOutput = {Write-Host $LogText}
+        # Define text wrappers for styles
+        $Wrap = @{
+            Title    = @{
+                Prefix = '.:: '
+                Suffix = ' ::.'
+            }
+            SubTitle = @{
+                Prefix = '... '
+                Suffix = ' ...'
+            }
         }
-    }
+
+        # Define a Write-Host splat for each style with overridable colors
+        $StyleSplatter = @{
+            Title    = @{
+                ForegroundColor = if ($ForegroundColor) { $ForegroundColor } else { 'Cyan' }
+                BackgroundColor = if ($BackgroundColor) { $BackgroundColor } else { 'Black' }
+                Object          = if ($Wrap.ContainsKey($Style)) { '{0}{1}{2}' -f ($Wrap[$Style].Prefix, $Text, $Wrap[$Style].Suffix) } else { $Text }
+            }
+            SubTitle = @{
+                ForegroundColor = if ($ForegroundColor) { $ForegroundColor } else { 'White' }
+                BackgroundColor = if ($BackgroundColor) { $BackgroundColor } else { 'Black' }
+                Object          = if ($Wrap.ContainsKey($Style)) { '{0}{1}{2}' -f ($Wrap[$Style].Prefix, $Text, $Wrap[$Style].Suffix) } else { $Text }
+            }
+            Code     = @{
+                ForegroundColor = if ($ForegroundColor) { $ForegroundColor } else { 'Black' }
+                BackgroundColor = if ($BackgroundColor) { $BackgroundColor } else { 'Gray' }
+                Object          = if ($Wrap.ContainsKey($Style)) { '{0}{1}{2}' -f ($Wrap[$Style].Prefix, $Text, $Wrap[$Style].Suffix) } else { $Text }
+            }
+            Basic    = @{
+                Object = $Text
+            }
+        }
+        $HostSplat = $StyleSplatter[$Style]
+    } #end Begin
 
     process {
         switch ($Output) {
             Both {
-                $HostOutput.Invoke()
+                Write-Host @HostSplat
                 [void]$script:LogStringBuilder.AppendLine($LogText)
             }
             HostOnly {
-                $HostOutput.Invoke()
+                Write-Host @HostSplat
             }
             LogOnly {
                 [void]$script:LogStringBuilder.AppendLine($LogText)
             }
         } # end switch Output
-    }
+    } # end Process
 
     end {
         # Nothing here yet.
