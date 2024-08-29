@@ -1,8 +1,8 @@
 # Write-This
 
 <!-- badges-start -->
-[![GitHub stars](https://img.shields.io/github/stars/samerde/powershell?cacheSeconds=3600)](https://github.com/samerde/Write-This/stargazers/)
-[![GitHub contributors](https://img.shields.io/github/contributors/samerde/powershell.svg)](https://github.com/samerde/Write-This/graphs/contributors/)
+[![GitHub stars](https://img.shields.io/github/stars/samerde/Write-This?cacheSeconds=3600)](https://github.com/samerde/Write-This/stargazers/)
+[![GitHub contributors](https://img.shields.io/github/contributors/samerde/Write-This.svg)](https://github.com/samerde/Write-This/graphs/contributors/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ae92f0d929de494690e712b68fb3b52c)](https://app.codacy.com/gh/SamErde/Write-This/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 ![PowerShell Gallery Version](https://img.shields.io/powershellgallery/v/Write-This?include_prereleases)
